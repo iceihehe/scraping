@@ -2,16 +2,13 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from fetchcar.models import Car
 from fetchcar.forms import SelectForm
+from datetime import date
 # Create your views here.
 
 
 def index(request):
-	if request.method == "POST":
-		form = SelectForm(request.POST)
-		return render_to_response("fetchcar/index.html")
-	form = SelectForm()
-	return render_to_response("fetchcar/index.html", dict(form=form),
-                              RequestContext(request))
+	car_list = Car.objects.order_by('-id')
+	return render_to_response("fetchcar/index.html",dict(car_list=car_list))
 
 
 def detail(request, car_id):

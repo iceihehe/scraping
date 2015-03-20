@@ -1,0 +1,26 @@
+<div class="container">
+	<table class="table table-striped">
+		<thead>
+			<tr>
+				<th>品牌</th>
+				<th>车型</th>
+				<th>城市</th>
+				<th>上牌时间</th>
+				<th>里程</th>
+				<th>价格</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for car in car_list %}
+				<tr>
+					<td><a href={% url "detail" car.id %}>{{ car.brand }}</a></td>
+					<td>{{ car.car_type }}</td>
+					<td>{{ car.city }}</td>
+					<td>{{ car.reg_time }}</td>
+					<td>{{ car.mileage }}</td>
+					<td>{{ car.price }}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
