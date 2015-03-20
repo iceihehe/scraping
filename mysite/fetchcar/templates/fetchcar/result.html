@@ -13,8 +13,8 @@
 		<tbody>
 			{% for car in car_list %}
 				<tr>
-					<td><a href={% url "detail" car.id %}>{{ car.brand }}</a></td>
-					<td>{{ car.car_type }}</td>
+					<td><a href={% url "detail" car.id %}>{{ car.car_type.brand.name }}</a></td>
+					<td>{{ car.car_type.name }}</td>
 					<td>{{ car.city }}</td>
 					<td>{{ car.reg_time }}</td>
 					<td>{{ car.mileage }}</td>
