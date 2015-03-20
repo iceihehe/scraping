@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% load staticfiles %}
+
+	<title>{% block title %}{% endblock %}</title>
+
+	<link rel="stylesheet" type="text/css" href="/static/fetchcar/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/fetchcar/css/bootstrap-theme.min.css">
+
+	<script type="text/javascript" src="/static/fetchcar/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="/static/fetchcar/js/bootstrap-multiselect.js"></script>
+
+	{% block extrahead %}{% endblock %}
+</head>
+<body>
+<nav class="navbar navbar-default">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed"
+			        data-toggle="collapse"
+			        data-target="#bs-example-navbar-collapse-1">
+			</button>
+			<a class="navbar-brand" href="{% url "index" %}">首页</a>
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li><a href="">筛选</a></li>
+				<li><a href="">刷新</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+
+{% block main %}{% endblock %}
+</body>
+</html>

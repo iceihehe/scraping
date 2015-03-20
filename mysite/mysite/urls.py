@@ -1,10 +1,10 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
-from fetchcar.models import Car
+#from fetchcar.models import Car
 
 
 admin.autodiscover()
-admin.site.register(Car)
+#admin.site.register(Car)
 
 urlpatterns = patterns('',
                        # Examples:
