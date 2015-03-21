@@ -1,8 +1,7 @@
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response
 from django.template import RequestContext
 from fetchcar.models import Car
-from fetchcar.forms import SelectForm
-from datetime import date
+
 # Create your views here.
 
 
@@ -16,3 +15,8 @@ def detail(request, car_id):
     if car is None:
         return render_to_response("fetchcar/404.html")
     return render_to_response("fetchcar/detail.html", dict(car=car))
+
+
+def search(request):
+	
+	return render_to_response("fetchcar/search.html")
