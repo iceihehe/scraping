@@ -20,6 +20,7 @@ class Car(models.Model):
     reg_time = models.DateField(null=True)
     mileage = models.FloatField(null=True)
     price = models.FloatField(null=True)
+    url = models.CharField(max_length=50, unique=True)
 
     def __unicode__(self):
-        return "<{}\t{}\t{}>".format(self.brand, self.car_type, self.price)
+        return "<{}\t{}\t{}>".format(self.car_type.brand, self.car_type, self.price)

@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from fetchcar.models import Car
+from fetchcar.models import Car, Brand
+from fetchcar.forms import SelectForm
 
 # Create your views here.
 
@@ -17,6 +18,13 @@ def detail(request, car_id):
     return render_to_response("fetchcar/detail.html", dict(car=car))
 
 
+'''def search(request):
+		context = {'state': None, "brands": Brand.objects.all().order_by('name')}
+		if 'brand' in request.POST:
+			print(request.POST['country'])
+
+		return render_to_response("fetchcar/search.html", context)'''
+
 def search(request):
-	
-	return render_to_response("fetchcar/search.html")
+	form = SelectForm
+	return render_to_response("fetchcar/search.html", dict(form=form))

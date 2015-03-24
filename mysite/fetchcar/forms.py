@@ -1,10 +1,10 @@
 # coding=utf-8
 from django import forms
+from .models import Brand
 
+brandlist = [brand.name for brand in Brand.objects.all()]
 
 class SelectForm(forms.Form):
-	OPTIONS = (
-		("a","a"),
-		("b","b")
-		)
-	brand = forms.MultipleChoiceField(choices=OPTIONS)
+	BRANDLIST = zip(brandlist, brandlist)
+
+	brand = forms.ChoiceField(choices=BRANDLIST)
