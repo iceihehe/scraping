@@ -17,7 +17,7 @@ class Car(models.Model):
 
     city = models.CharField(max_length=30, null=True)
     car_type = models.ForeignKey(CarType, null=True)
-    reg_time = models.DateField(null=True)
+    reg_time = models.IntegerField(null=True)
     mileage = models.FloatField(null=True)
     price = models.IntegerField(null=True)
     url = models.CharField(max_length=200, unique=True)
