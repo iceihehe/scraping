@@ -19,8 +19,8 @@ class Car(models.Model):
     car_type = models.ForeignKey(CarType, null=True)
     reg_time = models.DateField(null=True)
     mileage = models.FloatField(null=True)
-    price = models.FloatField(null=True)
-    url = models.CharField(max_length=50, unique=True)
+    price = models.IntegerField(null=True)
+    url = models.CharField(max_length=200, unique=True)
 
     def __unicode__(self):
         return "<{}\t{}\t{}>".format(self.car_type.brand, self.car_type, self.price)
