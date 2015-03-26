@@ -5,7 +5,7 @@ import django
 import json
 from datetime import date
 from tutorial.items import CarItem, CartypeItem, BrandItem
-from fetchcar.models import Brand, CarType
+from fetchcar.models import Brand, CarType, Car
 
 
 django.setup()
@@ -16,12 +16,27 @@ class FetchcarSpider(scrapy.spider.Spider):
 	start_urls = ["http://cd.gongpingjia.com/used-car/search/"]
 
 	def parse(self, response):
+		maxpage = response.xpath("//li[@class='disabled']/a/text()").extract()[0].split()[2][:-1]
+		for page in xrange(int(maxpage)):
+			yield scrapy.Request("http://cd.gongpingjia.com/used-car/search/?page=" + str(page), callback=self.secondparse)
+
+	def secondparse(self, response):
 		for sel in response.xpath("//div[@class='car-name']/a/@href").extract():
 			url = "http://cd.gongpingjia.com" + sel
-			yield scrapy.Request(url, callback=self.parsedeep)
+			if not Car.objects.filter(url=url):
+				yield scrapy.Request(url, callback=self.thirdparse)
 
-	def parsedeep(self, response):
-			pass
+	def thirdparse(self, response):
+		item = CarItem()
+		item['url'] = response.url
+		name = response.xpath("//div[@id='car_title']/text()").extract()[0]
+		item['car_type'] = CarType.objects.filter(name=name[:-4]).first()
+		item['mileage'] = float(response.xpath("//span[@class='strong_car']/text()").extract()[0][:-3])
+		item['city'] = response.xpath("//span[@class='strong_car']/text()").extract()[1].strip()
+		price = response.xpath("//div[@id='car_price']/text()").extract()[0][1:]
+		item['price'] = int(''.join(price.split(",")))
+		item['reg_time'] = int(response.xpath("//span[@id='car_year']/text()").extract()[0][:-3])
+		item.save()
 
 
 class GetinfoSpider(scrapy.spider.Spider):
