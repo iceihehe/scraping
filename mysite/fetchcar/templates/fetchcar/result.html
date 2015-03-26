@@ -23,4 +23,19 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	<div class="pager">
+		<span class="previous">
+			{% if car_list.has_previous %}
+				<a href="?page={{ car_list.previous_page_number }}">上一页</a>
+			{% endif %}
+		</span>
+		<span class="span4">
+			第 {{ car_list.number }} 页 | 共 {{ car_list.paginator.num_pages }} 页
+		</span>
+		<span class="next">
+			{% if car_list.has_next %}
+				<a href="?page={{ car_list.next_page_number }}">下一页</a>
+			{% endif %}
+		</span>
+	</div>
 </div>

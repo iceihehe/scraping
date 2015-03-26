@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from fetchcar.models import Car, Brand
 from fetchcar.forms import SelectForm
 
@@ -8,7 +9,15 @@ from fetchcar.forms import SelectForm
 
 def index(request):
 	car_list = Car.objects.order_by('-id')
-	return render_to_response("fetchcar/index.html",dict(car_list=car_list))
+	paginator = Paginator(car_list, 20)
+	page = request.GET.get('page')
+	try:
+		cars = paginator.page(page)
+	except PageNotAnInteger:
+		cars = paginator.page(1)
+	except EmptyPage:
+		cars = paginator.page(paginator.num_pages)
+	return render_to_response("fetchcar/index.html", dict(car_list=cars))
 
 
 def detail(request, car_id):
