@@ -4,24 +4,25 @@
 	筛选
 {% endblock %}
 
+{% block extrahead %}
+<script type="text/javascript" src="/static/fetchcar/js/search.js"></script>
+{% endblock %}
 {% block main %}
-<!--
-<select name="brand" id="select_brand">
-	<option value="">--选择品牌--</option>
-	{% for brand in brands %}
-	<option value={{ brand.name }} {% ifequal brand.name brand %} selected="selected" {% endifequal %}>{{ brand.name }}</option>
-	{% endfor %}
-</select>
 
-<select>
-	<option value="">--选择车型--</option>
-</select>
-<button type="submit">确定</button>
--->
 
-<form method="post" roll="form">
-	{% csrf_token %}
-	{{ form.brand }}
-</form>
+<form method="post">
+{% csrf_token %}
+	<select name="brand" id="select_brand">
+		<option value="">--选择品牌--</option>
+	</select>
+
+	<select name="cartype" id="select_cartype">
+		<option value="">--选择车型--</option>
+	</select>
+	<button type="submit">确定</button>
+	</form>
+
+
+
 {% endblock %}
 
