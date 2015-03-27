@@ -30,11 +30,27 @@ def detail(request, car_id):
 
 
 def search(request):
+	regtime_list = list(set([car.reg_time for car in Car.objects.all()]))
+	regtime_list.sort(reverse=True)
 	if request.method == "POST":
 		form = Form(request.POST)
-		cartype = CarType.objects.filter(id=form.data.get('cartype')).first()
-		print(cartype.name)
-		car_list = Car.objects.filter(car_type=cartype).all()
+		cartype_id = form.data.get("cartype")
+		if not cartype_id:
+			car_list = Car.objects.all()
+		else:
+			cartype = CarType.objects.filter(id=cartype_id).first()
+			car_list = Car.objects.filter(car_type=cartype).all()
+		regtime = form.data.get("regtime")
+		if regtime:
+			car_list = car_list.filter(reg_time=regtime).all()
+		price_min = form.data.get("price_min")
+		if price_min:
+			car_list = car_list.filter(price__gt=int(price_min)*10000).all()
+		price_max = form.data.get("price_max")
+		print(price_min, price_max)
+		if price_max:
+			car_list = car_list.filter(price__lt=int(price_max)*10000).all()
+
 		paginator = Paginator(car_list, 20)
 		page = request.GET.get('page')
 		try:
@@ -43,8 +59,8 @@ def search(request):
 			cars = paginator.page(1)
 		except EmptyPage:
 			cars = paginator.page(paginator.num_pages)
-		return render_to_response("fetchcar/index.html", dict(car_list=cars))
-	return render_to_response("fetchcar/search.html", RequestContext(request))
+		return render_to_response("fetchcar/search.html", dict(car_list=cars, regtime_list=regtime_list), RequestContext(request))
+	return render_to_response("fetchcar/search.html",  dict(regtime_list=regtime_list), RequestContext(request))
 
 
 def cartype_api(request):

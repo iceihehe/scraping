@@ -19,10 +19,21 @@
 	<select name="cartype" id="select_cartype">
 		<option value="">--选择车型--</option>
 	</select>
-	<button type="submit">确定</button>
+
+	<select name="regtime" id="select_regtime">
+		<option value="">--上牌时间--</option>
+		{% for reg_time in regtime_list %}
+		<option value={{ reg_time }}>{{ reg_time }}</option>
+		}
+		{% endfor %}
+	</select>
+	<input name="price_min" type="text" placeholder="价格:万" />到
+	<input name="price_max" type="text" placeholder="价格:万" />
+	<button type="submit" class="btn-default">确定</button>
 	</form>
 
-
-
+{% if car_list %}
+{% include "fetchcar/result.html" %}
+{% endif %}
 {% endblock %}
 
