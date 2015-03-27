@@ -20,5 +20,5 @@ NEWSPIDER_MODULE = 'tutorial.spiders'
 #USER_AGENT = 'tutorial (+http://www.yourdomain.com)'
 
 
-sys.path.append("/home/vagrant/scraping/mysite")
+sys.path.append("/home/iceihehe/scraping/mysite")
 os.environ['DJANGO_SETTINGS_MODULE'] = 'mysite.settings'

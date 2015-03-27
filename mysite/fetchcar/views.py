@@ -47,19 +47,10 @@ def search(request):
 		if price_min:
 			car_list = car_list.filter(price__gt=int(price_min)*10000).all()
 		price_max = form.data.get("price_max")
-		print(price_min, price_max)
 		if price_max:
 			car_list = car_list.filter(price__lt=int(price_max)*10000).all()
 
-		paginator = Paginator(car_list, 20)
-		page = request.GET.get('page')
-		try:
-			cars = paginator.page(page)
-		except PageNotAnInteger:
-			cars = paginator.page(1)
-		except EmptyPage:
-			cars = paginator.page(paginator.num_pages)
-		return render_to_response("fetchcar/search.html", dict(car_list=cars, regtime_list=regtime_list), RequestContext(request))
+		return render_to_response("fetchcar/search.html", dict(car_list=car_list, regtime_list=regtime_list), RequestContext(request))
 	return render_to_response("fetchcar/search.html",  dict(regtime_list=regtime_list), RequestContext(request))
 
 

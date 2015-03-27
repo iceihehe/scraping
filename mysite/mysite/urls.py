@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 #from fetchcar.models import Car
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 admin.autodiscover()
 #admin.site.register(Car)
@@ -14,3 +14,5 @@ urlpatterns = patterns('',
                        url(r'^fetchcar/', include('fetchcar.urls')),
                        url(r'^admin/', include(admin.site.urls)),
                        )
+
+urlpatterns += staticfiles_urlpatterns()
